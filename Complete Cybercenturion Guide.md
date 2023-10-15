@@ -5,8 +5,27 @@ apt update -y
 apt upgrade -y
 apt autoclean -y
 apt autoremove -y
-apt install ufw gufw lynis auditd libpam-pwquality unhide fail2ban libpam-cracklib clamav software-properties-common apt-transport-https wget git chkrootkit rkhunter  apparmor apparmor-profiles -y
+apt install ufw gufw lynis auditd libpam-pwquality unhide fail2ban libpam-cracklib clamav software-properties-common apt-transport-https wget git chkrootkit rkhunter  apparmor apparmor-profiles unattended-upgrades -y
 sudo apt-get remove --purge openjdk-\* -y
+nano /etc/apt/apt.conf.d/50unattended-upgrades
+#Add following
+// Enable unattended-upgrades and set the desired frequency for updates
+Unattended-Upgrade::Enable "true";
+Unattended-Upgrade::Allowed-Origins "o=Debian,a=stable";
+Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+Unattended-Upgrade::MinimalSteps "true";
+Unattended-Upgrade::InstallOnShutdown "false";
+Unattended-Upgrade::Mail "root";
+Unattended-Upgrade::MailOnlyOnError "true";
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Automatic-Reboot "true";
+Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+// Schedule automatic updates to run every Sunday
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "7";
+
 ```
 #### DO FIRST!!!
 ```bash
@@ -76,6 +95,7 @@ PASS_MIN_DAYS	2
 PASS_MIN_LEN	10
 PASS_WARN_AGE	7
 ENCRYPT_METHOD SHA512
+
 ```
 
 #### SSH Config
@@ -196,4 +216,34 @@ sysctl -p
 ```bash
 passwd #set new password for root
 awk -F: '$3 == 0 { print "Username: " $1, "UID: " $3 }' /etc/passwd #UID of 0
+#check for empty passwords
+#!/bin/bash
+empty_password_users=()
+# Read the /etc/shadow file and check for empty passwords
+while IFS=: read -r username password; do
+    if [ -z "$password" ] || [ "$password" = "!" ] || [ "$password" = "*" ]; then
+        empty_password_users+=("$username")
+    fi
+done < /etc/shadow
+# Check if there are any users with empty passwords
+if [ ${#empty_password_users[@]} -eq 0 ]; then
+    echo "No users have empty passwords."
+else
+    echo "Users with empty passwords:"
+    for user in "${empty_password_users[@]}"; do
+        echo "- $user"
+    done
+fi
+
+#check for hidden users
+#!/bin/bash
+# Define the minimum UID to consider as hidden (e.g., 1000)
+MIN_UID=1000
+# Iterate through /etc/passwd to find hidden users
+while IFS=: read -r username password uid rest; do
+    if [ "$uid" -lt "$MIN_UID" ]; then
+        echo "Hidden User: $username (UID: $uid)"
+    fi
+done < /etc/passwd
+
 ```

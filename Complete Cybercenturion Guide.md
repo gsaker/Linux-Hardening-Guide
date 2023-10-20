@@ -29,7 +29,7 @@ APT::Periodic::AutocleanInterval "7";
 ```
 #### DO FIRST!!!
 ```bash
-git clone https://github.com/kenneth-karlsson/Cisecurity
+git clone https://github.com/gsaker/Cisecurity/
 cd Cisecurity-master
 ./cis1804.sh -u #for example
 apt install xorg open-vm-tools lightdm gdm 

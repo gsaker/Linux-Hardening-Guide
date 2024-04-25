@@ -3,20 +3,20 @@ Below steps are in rough order, see below sections for explanation on how to per
 
 ==IMPORTANT NOTE:== All command should be run as the root user, that means eaither putting `sudo` in front of every command or by logging in as root using `sudo -i` (preferred option)
 ### All Images
-- [[#Install Webmin]]
-- [[#Run Cisecurity Script]]
-- [[#User checks]]
-- [[#Modify Kernel Things]]
-- [[#Software Updates]]
-- [[#Enable Firewall]]
-- [[#Password Requirements]]
-- [[#Removing Media Files]]
-- [[#Check for cron/init jobs]]
-- [[#Application Settings]]
-- [[#Antivirus]]
-- [[#Other Random Stuff]]
+- [#Install Webmin](#Install%20Webmin)
+- [#Run Cisecurity Script](#Run%20Cisecurity%20Script)
+- [#User checks](#User%20checks)
+- [#Modify Kernel Things](#Modify%20Kernel%20Things)
+- [#Software Updates](#Software%20Updates)
+- [#Enable Firewall](#Enable%20Firewall)
+- [#Password Requirements](#Password%20Requirements)
+- [#Removing Media Files](#Removing%20Media%20Files)
+- [#Check for cron/init jobs](#Check%20for%20cron/init%20jobs)
+- [#Application Settings](#Application%20Settings)
+- [#Antivirus](#Antivirus)
+- [#Other Random Stuff](#Other%20Random%20Stuff)
 ### Services
-- [[#SSH]]
+- [#SSH](#SSH)
 # Guides
 
 ### Install Webmin
@@ -330,7 +330,7 @@ done < /etc/passwd
 ```
 
 ### Antivirus
-NOTE: You will need to run the long install command in the [[#Software Updates]] section
+NOTE: You will need to run the long install command in the [#Software Updates](#Software%20Updates) section
 ==ASK GEORGE TO LOOK AT OUTPUT==
 **Clamav**
 Will take a long time

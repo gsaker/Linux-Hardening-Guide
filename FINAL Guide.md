@@ -1,24 +1,8 @@
 # Steps to win 
 Below steps are in rough order, see below sections for explanation on how to perform each step
 
-**IMPORTANT NOTE:** All command should be run as the root user, that means either putting `sudo` in front of every command or by logging in as root using `sudo -i` (preferred option)
-### All Images
-- [[#Install Webmin]]
-- [[#Run Cisecurity Script]]
-- [[#User checks]]
-- [[#Modify Kernel Things]]
-- [[#Software Updates]]
-- [[#Enable Firewall]]
-- [[#Password Requirements]]
-- [[#Removing Media Files]]
-- [[#Check for cron/init jobs]]
-- [[#Application Settings]]
-- [[#Antivirus]]
-- [[#Other Random Stuff]]
-### Services
-- [[#SSH]]
-### Software
-- 
+**IMPORTANT NOTE:** All commands should be run as the root user, that means either putting `sudo` in front of every command or by logging in as root using `sudo -i` (preferred option)
+
 # Guides
 
 ### Install Webmin
@@ -50,8 +34,6 @@ apt install webmin
 ```
 Now navigate to [http://localhost:10000](http://localhost:10000) in firefox. Click advanced on the window that appears and click accept the risk and continue. Log in with the admin user and password. You are now in webmin!
 ### Run Cisecurity Script
-==Very Important - Make sure george runs + watches the script whilst it is running since it sometimes does weird things==
-Install git to download the repository
 ```bash
 apt install git net-tools
 ```
@@ -102,7 +84,7 @@ Enable automatic updates service
 sudo systemctl enable unattended-upgrades
 sudo systemctl start unattended-upgrades
 ```
-Edit file to setup unattended updates, then uncomment Debian security etc ==Ask George==
+Edit file to setup unattended updates, then uncomment Debian security etc
 ```bash
 nano /etc/apt/apt.conf.d/50unattended-upgrades
 ```
@@ -187,7 +169,7 @@ Find image files
 find /home -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" -o -name "*.bmp" -o -name "*.tiff" -o -name "*.tif" -o -name "*.webp" -o -name "*.raw" -o -name "*.svg" \)
 ```
 ### Check for cron/init jobs
-Look in Webmin for cron jobs, ask George before removing anything. Once that's done check who is allowed and not allowed to make cron jobs - again ask George
+Look in Webmin for cron jobs. Once that's done check who is allowed and not allowed to make cron jobs
 ```bash
 cat /etc/cron.d/cron.deny
 nano /etc/cron.d/cron.allow
@@ -198,7 +180,7 @@ Make sure the correct people own the file
 chown root:root cron.allow
 chmod 644 cron.allow
 ```
-Now ask george about the output of the command below:
+Check the output of the command below:
 ```bash
 ls -la /etc/init/
 ls -la /etc/init.d/
@@ -318,7 +300,7 @@ else
     done
 fi
 ```
-Look for hidden users, most of these will be system users who are fine but ask George
+Look for hidden users, most of these will be system users who are fine
 ```bash
 #!/bin/bash
 # Define the minimum UID to consider as hidden (e.g., 1000)
@@ -332,8 +314,7 @@ done < /etc/passwd
 ```
 
 ### Antivirus
-NOTE: You will need to run the long install command in the [[#Software Updates]] section
-==ASK GEORGE TO LOOK AT OUTPUT==
+NOTE: You will need to run the long install command in the section
 **Clamav**
 Will take a long time
 ```

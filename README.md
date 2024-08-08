@@ -42,7 +42,7 @@ apt install git net-tools
 ```
 Clone the script repository
 ```bash
-git clone https://github.com/gsaker/Cisecurity/
+git clone https://github.com/kenneth-karlsson/Cisecurity
 ```
 Change directory to the script directory
 ```
